@@ -1,6 +1,7 @@
 {
     "require": {
-        "longman/telegram-bot": "^0.49.0",
+        "php-telegram-bot/telegram-bot-manager": "^1.2",
+        "longman/telegram-bot": "dev-develop as 0.48",
         "guzzlehttp/guzzle": "^6.3"
     }
 }

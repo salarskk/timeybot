@@ -43,10 +43,13 @@ Edit `config.json` with your favorite text editor:
     "bot": {
         "api_key": "create using @BotFather",
         "username": "create using @BotFather",
-        "version": "current git hash - will be auto generated with each deployment"
+        "version": "automatically created",
+        "admins": []
     },
     "web": {
-        "base_url": "https://timey.sebastian-hoeffner.de"
+        "base_url": "e.g. https://timey.sebastian-hoeffner.de",
+        "app_secret": "some secret string to use manager.php",
+        "valid_ips": []
     }
 }
 ```
