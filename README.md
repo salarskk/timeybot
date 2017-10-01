@@ -38,7 +38,7 @@ Edit `config.json` with your favorite text editor:
         "api_token": "see https://github.com/settings/tokens",
         "owner": "shoeffner",
         "repository": "timeybot",
-        "hook_UA": "Check the example hook request when creating a hook. https://github.com/<owner>/<repository>/settings/hooks"
+        "hook_secret": "hook secret, see /settings/hooks"
     },
     "bot": {
         "api_key": "create using @BotFather",
@@ -60,6 +60,7 @@ pointing to your server's
 This will perform dependency checks and allow for continuous deployment,
 unless manual intervention is needed (see section about subsequent
 deployments).
+The webhook should use the content type `application/x-www-form-urlencoded`.
 
 
 ### Subsequent deployments

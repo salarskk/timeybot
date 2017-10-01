@@ -1,10 +1,10 @@
 <?php
 /* This file checks if the composer.lock file on the server and for the pull
-* request are the same. If they are not, the vendor directory on the server
-* has to be updated to match the new required versions.
-*
-* It is supposed to be used as a Webhook for pull_requests and and push and
-* sets status reports.
+ * request are the same. If they are not, the vendor directory on the server
+ * has to be updated to match the new required versions.
+ *
+ * It is supposed to be used as a Webhook for pull_requests and
+ * sets status reports.
  */
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -15,7 +15,7 @@ $config = json_decode(file_get_contents('../config.json'), TRUE);
 $owner = $config['github']['owner'];
 $repository = $config['github']['repository'];
 $github_api_token = $config['github']['api_token'];
-$hook_user_agent = $config['github']['hook_UA'];
+$hook_secret = $config['github']['hook_secret'];
 $github_api_repo_url = "https://api.github.com/repos/$owner/$repository";
 $context = "continuous-integration/composer.lock-check";
 
@@ -66,14 +66,22 @@ $write_report = function ($status, $commit_payload)
     file_put_contents("../ci_reports/$commit.html", $template);
 };
 
+
 // Check validity of request
+if (!isset($_SERVER['HTTP_X_HUB_SIGNATURE'])) {
+    die('No X-Hub-Signature found.');
+}
+// Verify sha1 signature
+if ('sha1=' . hash_hmac('sha1',
+                        file_get_contents('php://input'),
+                        $hook_secret)
+    != $_SERVER['HTTP_X_HUB_SIGNATURE']) {
+    die('Signature comparison failed.');
+}
+// Check request type
 if (!isset($_SERVER['HTTP_X_GITHUB_EVENT'])
     || $_SERVER['HTTP_X_GITHUB_EVENT'] != 'pull_request') {
     die('No GitHub pull request event.');
-}
-if (!isset($_SERVER['HTTP_USER_AGENT'])
-    || $_SERVER['HTTP_USER_AGENT'] != $hook_user_agent) {
-    die('Unexpected User-Agent (was ' . $_SERVER['HTTP_USER_AGENT'] . ')');
 }
 
 
