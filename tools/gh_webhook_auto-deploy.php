@@ -38,7 +38,11 @@ if (!isset($_SERVER['HTTP_X_GITHUB_EVENT'])
 // Extract relevant information
 $payload = json_decode($_POST['payload'], TRUE);
 $merge_status = (bool) $payload['pull_request']['merged'];
+$merge_base = $payload['pull_request']['base']['ref'];
 
+if ($merge_base != 'master') {
+    die('Not merged to master.');
+}
 if ($merge_status !== TRUE) {
     die('PR not merged.');
 }
