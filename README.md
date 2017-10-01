@@ -42,7 +42,8 @@ Edit `config.json` with your favorite text editor:
     },
     "bot": {
         "api_key": "create using @BotFather",
-        "username": "create using @BotFather"
+        "username": "create using @BotFather",
+        "version": "current git hash - will be auto generated with each deployment"
     },
     "web": {
         "base_url": "https://timey.sebastian-hoeffner.de"
