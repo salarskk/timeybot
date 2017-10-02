@@ -8,6 +8,15 @@ require_once __DIR__ . '/vendor/autoload.php';
 function createBotManager(string $config_file_path) : BotManager
 {
     $config = json_decode(file_get_contents($config_file_path), TRUE);
+    if (defined('PHPUNIT_TESTSUITE')) {
+        $logging = [];
+    } else {
+        $logging = [
+            'update' => __DIR__ . '/php-telegram-bot-update.log',
+            'debug'  => __DIR__ . '/php-telegram-bot-debug.log',
+            'error'  => __DIR__ . '/php-telegram-bot-error.log',
+        ];
+    }
     return new BotManager([
         'api_key' => $config['bot']['api_key'],
         'bot_username'=> $config['bot']['username'],
@@ -19,11 +28,7 @@ function createBotManager(string $config_file_path) : BotManager
 
         'validate_request' => true,
 
-        'logging' => [
-            'update' => __DIR__ . '/php-telegram-bot-update.log',
-            'debug'  => __DIR__ . '/php-telegram-bot-debug.log',
-            'error'  => __DIR__ . '/php-telegram-bot-error.log',
-        ],
+        'logging' => $logging,
 
         'limiter' => [
             'enabled' => true,

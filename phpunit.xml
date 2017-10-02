@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/3.7/phpunit.xsd">
+    <php>
+        <const name="PHPUNIT_TESTSUITE" value="true" />
+        <server name="REMOTE_ADDR" value="149.154.167.197" />
+    </php>
+    <testsuites>
+        <testsuite name="Commands">
+            <directory suffix="Test.php">tests/Commands/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
