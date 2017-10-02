@@ -3,5 +3,8 @@
         "php-telegram-bot/telegram-bot-manager": "^1.2",
         "longman/telegram-bot": "dev-develop as 0.48",
         "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.3"
     }
 }
