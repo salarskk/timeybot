@@ -1,13 +1,14 @@
-<?php
-use TelegramBot\TelegramBotManager\BotManager;
+<?php declare(strict_types=1);
+namespace Timey;
+
+use \TelegramBot\TelegramBotManager\BotManager;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-
-$config = json_decode(file_get_contents('config.json'), TRUE);
-
-try {
-    $bot = new BotManager([
+function createBotManager(string $config_file_path) : BotManager
+{
+    $config = json_decode(file_get_contents($config_file_path), TRUE);
+    return new BotManager([
         'api_key' => $config['bot']['api_key'],
         'bot_username'=> $config['bot']['username'],
         'secret' => $config['web']['app_secret'],
@@ -16,7 +17,7 @@ try {
             'url' => "{$config['web']['base_url']}/manager.php",
         ],
 
-        // 'validate_request' => true,
+        'validate_request' => true,
 
         'logging' => [
             'update' => __DIR__ . '/php-telegram-bot-update.log',
@@ -49,7 +50,21 @@ try {
 
         'valid_ips' => $config['web']['valid_ips']
     ]);
-    $bot->run();
-} catch (\Exception $e) {
-    echo $e->getMessage() . PHP_EOL;
+}
+
+
+function main()
+{
+    try {
+        $bot = createBotManager(__DIR__ . '/config.json');
+        $bot->run();
+    } catch (\Exception $e) {
+        echo $e->getMessage() . PHP_EOL;
+    }
+}
+
+
+if (realpath(__FILE__) ==
+        realpath($_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_NAME'])) {
+    main();
 }
