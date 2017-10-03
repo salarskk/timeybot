@@ -1,0 +1,12 @@
+{
+    "bot": {
+        "api_key": "12345:random-characters",
+        "username": "timey_tests",
+        "admins": [1]
+    },
+    "web": {
+        "base_url": "http://localhost/",
+        "app_secret": "796bc7c5ce69ac80d2970",
+        "valid_ips": []
+    }
+}
