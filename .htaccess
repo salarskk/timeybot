@@ -1,4 +1,16 @@
-<FilesMatch "(?<!\.php|\.html)$">
-Order Allow,Deny
-Deny from all
-</FilesMatch>
+# Set index files
+DirectoryIndex index.php index.html
+
+# Set encodings and language for all files
+<Files ~ ".*">
+    AddDefaultCharset UTF-8
+    DefaultLanguage en-US
+</Files>
+
+# Disallow access to subdirectories and files not related to the website
+RedirectMatch 403 ^/\.semaphore-cache/.*$
+RedirectMatch 403 ^/Commands/.*$
+RedirectMatch 403 ^/tests/.*$
+RedirectMatch 403 ^/vendor/.*$
+RedirectMatch 403  ^/README.md$
+RedirectMatch 403  ^/.*(\.json.*|\.md|\.log|\.xml|\.lock)$
