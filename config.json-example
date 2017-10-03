@@ -1,15 +1,9 @@
 {
-    "github": {
-        "api_token": "see https://github.com/settings/tokens",
-        "owner": "shoeffner",
-        "repository": "timeybot",
-        "hook_secret": "hook secret, see /settings/hooks"
-    },
     "bot": {
         "api_key": "create using @BotFather",
         "username": "create using @BotFather",
         "version": "automatically created",
-        "admins": []
+        "admins": [your user id's, and your friend's, and...]
     },
     "web": {
         "base_url": "e.g. https://timey.sebastian-hoeffner.de",
