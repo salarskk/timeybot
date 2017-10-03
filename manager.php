@@ -12,8 +12,8 @@ function createBotManager(string $config_file_path) : BotManager
         $logging = [];
     } else {
         $logging = [
-            'update' => __DIR__ . '/php-telegram-bot-update.log',
-            'debug'  => __DIR__ . '/php-telegram-bot-debug.log',
+            // 'update' => __DIR__ . '/php-telegram-bot-update.log',
+            // 'debug'  => __DIR__ . '/php-telegram-bot-debug.log',
             'error'  => __DIR__ . '/php-telegram-bot-error.log',
         ];
     }
