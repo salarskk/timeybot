@@ -1,12 +1,11 @@
-<?php
-
-
+<?php declare(strict_types=1);
 namespace Longman\TelegramBot\Commands\UserCommands;
 
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Request;
 
-class HelpCommand extends UserCommand {
+class HelpCommand extends UserCommand
+{
     protected $name = 'help';
     protected $description = 'Help command';
     protected $usage = '/help';
