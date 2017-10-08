@@ -5,7 +5,6 @@ require_once __DIR__ .'/../TestHelpers.php';
 
 class TimeCommandTest extends TelegramBotCommandTest
 {
-
     /**
      * @dataProvider timeCommandProvider
      */
@@ -16,13 +15,19 @@ class TimeCommandTest extends TelegramBotCommandTest
     }
 
     /**
-     * Dataprovider for testHelpCommand.
+     * Dataprovider for testTimeCommand.
      */
     public function timeCommandProvider() : array
     {
         return [
+            [['text' => '/time new york'], 'time...'],
+            [['text' => '/time tokyo'], 'time...'],
+            [['text' => '/time osnabrück'], 'time...'],
+            [['text' => '/time osnabruck'], 'time...'],
             [['text' => '/time 16:00 tomorrow in new york'], 'time...'],
-            [['text' => '/time new york'], 'time...']
+            [['text' => '/time tomorrow 16:00 in new york'], 'time...'],
+            [['text' => '/time 16:00 tomorrow in tokyo'], 'time...'],
+            [['text' => '/time tomorrow 16:00 in tokyo'], 'time...'],
         ];
     }
 }

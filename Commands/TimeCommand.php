@@ -3,6 +3,7 @@ namespace Longman\TelegramBot\Commands\UserCommands;
 
 use Longman\TelegramBot\Commands\Command;
 use Longman\TelegramBot\Commands\UserCommand;
+use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Request;
 
 /**
@@ -17,15 +18,30 @@ class TimeCommand extends UserCommand
     protected $usage = '/time <time string>';
     protected $version = '1.0.0';
 
-    public function execute()
+    protected function parse_message(string $message) : string
+    {
+        // TODO(shoeffner): Implement proper date parsing
+        return $message;
+    }
+
+    public function execute() : ServerResponse
     {
         $message = $this->getMessage();
         $chat_id = $message->getChat()->getId();
         $text = trim($message->getText(true));
+
+        if ($message->getReplyToMessage() != null) {
+            $reply = $message->getReplyToMessage()->getText();
+            $parsed_message = $this->parse_message($reply);
+        } else {
+            $parsed_message = $this->parse_message($text);
+        }
+
         $data = [
             'chat_id' => $chat_id,
-            'text' => 'Some time...' . PHP_EOL . $message->getText(true),
+            'text' => 'time...' . PHP_EOL . $parsed_message,
         ];
+
         return Request::sendMessage($data);
     }
 }
