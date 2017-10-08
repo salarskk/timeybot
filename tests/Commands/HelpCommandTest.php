@@ -21,7 +21,7 @@ class HelpCommandTest extends TelegramBotCommandTest
     public function helpCommandProvider() : array
     {
         return [
-            [['text' => '/help'], 'Hello, I am timey!']
+            [['text' => '/help'], '/time']
         ];
     }
 }
