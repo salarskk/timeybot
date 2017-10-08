@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 namespace Timey\Test;
 
 require_once __DIR__ . '/../vendor/autoload.php';
