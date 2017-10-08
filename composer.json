@@ -1,4 +1,5 @@
 {
+    "name": "shoeffner/timeybot",
     "require": {
         "php-telegram-bot/telegram-bot-manager": "^1.2",
         "longman/telegram-bot": "dev-develop as 0.48",
