@@ -13,7 +13,6 @@ use function \Timey\createBotManager;
 
 class TestHelper
 {
-    public $config;
     public $botManager;
 
     public function __construct()
