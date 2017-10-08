@@ -1,23 +1,37 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 namespace Timey;
 
 use \TelegramBot\TelegramBotManager\BotManager;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+/**
+ * Reads the config file and creates a BotManager.
+ *
+ * @param config_file_path The configuration file path.
+ * @return A BotManager instance.
+ */
 function createBotManager(string $config_file_path) : BotManager
 {
     $config = json_decode(file_get_contents($config_file_path), TRUE);
     if (defined('PHPUNIT_TESTSUITE')) {
-        $logging = [];
+        $merge_config = [];
     } else {
-        $logging = [
-            // 'update' => __DIR__ . '/php-telegram-bot-update.log',
-            // 'debug'  => __DIR__ . '/php-telegram-bot-debug.log',
-            'error'  => __DIR__ . '/php-telegram-bot-error.log',
+        $merge_config = [
+            'logging' => [
+                // 'update' => __DIR__ . '/php-telegram-bot-update.log',
+                // 'debug'  => __DIR__ . '/php-telegram-bot-debug.log',
+                'error'  => __DIR__ . '/php-telegram-bot-error.log',
+            ],
+            'database' => [
+                'host' => $config['database']['host'],
+                'user' => $config['database']['user'],
+                'password' => $config['database']['password'],
+                'database' => $config['database']['database'],
+            ]
         ];
     }
-    return new BotManager([
+    return new BotManager(array_merge([
         'api_key' => $config['bot']['api_key'],
         'bot_username'=> $config['bot']['username'],
         'secret' => $config['web']['app_secret'],
@@ -27,8 +41,6 @@ function createBotManager(string $config_file_path) : BotManager
         ],
 
         'validate_request' => true,
-
-        'logging' => $logging,
 
         'limiter' => [
             'enabled' => true,
@@ -54,10 +66,13 @@ function createBotManager(string $config_file_path) : BotManager
         ],
 
         'valid_ips' => $config['web']['valid_ips']
-    ]);
+    ], $merge_config));
 }
 
 
+/**
+ * Creates and runs a BotManager.
+ */
 function main()
 {
     try {
