@@ -1,15 +1,15 @@
 <?php declare(strict_types = 1);
+
 namespace Longman\TelegramBot\Commands\UserCommands;
 
+use Carbon\Carbon;
 use Longman\TelegramBot\Commands\Command;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Request;
 
 /**
- * User "/time" command
- *
- * Command that lists all available commands and displays them in User and Admin sections.
+ * User "/time" command.
  */
 class TimeCommand extends UserCommand
 {
@@ -18,10 +18,45 @@ class TimeCommand extends UserCommand
     protected $usage = '/time <time string>';
     protected $version = '1.0.0';
 
+    protected function getTimezoneByCity(string $city) : string
+    {
+        // TODO(shoeffner): Get timezone from database or API.
+        switch (strtolower(trim($city))) {
+            case 'new york':
+                return 'America/New_York';
+            case 'tokyo':
+                return 'Asia/Tokyo';
+            case 'osnabrück':
+                return 'Europe/Berlin';
+        }
+        return 'Europe/Berlin';
+    }
+
     protected function parse_message(string $message) : string
     {
-        // TODO(shoeffner): Implement proper date parsing
-        return $message;
+        // TODO(shoeffner): Currently assumes local server time to be the
+        //                  user's time. Change this!
+        date_default_timezone_set('Europe/Berlin');
+
+        $time_and_city = explode('in', $message);
+        $time = $time_and_city[0];
+
+        try {
+            // Try parsing date
+            $parsed = Carbon::parse($time);
+        } catch (\Exception $e) {
+            // Assume city name only
+            $timezone = $this->getTimezoneByCity($time);
+            $parsed = Carbon::now($timezone);
+        }
+
+        if (count($time_and_city) > 1) {
+            $city = $time_and_city[1];
+            $timezone = $this->getTimezoneByCity($city);
+            $parsed = $parsed->timezone($timezone);
+        }
+
+        return $parsed->format(\DateTime::COOKIE);
     }
 
     public function execute() : ServerResponse
@@ -39,7 +74,7 @@ class TimeCommand extends UserCommand
 
         $data = [
             'chat_id' => $chat_id,
-            'text' => 'time...' . PHP_EOL . $parsed_message,
+            'text' => $parsed_message,
         ];
 
         return Request::sendMessage($data);

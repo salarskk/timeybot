@@ -1,11 +1,30 @@
 {
     "name": "shoeffner/timeybot",
+    "license": "MIT",
+    "homepage": "https://timeybot.sebastian-hoeffner.de",
+    "support": {
+        "issues": "https://github.com/shoeffner/timeybot/issues",
+        "source": "https://github.com/shoeffner/timeybot"
+    },
+    "authors": [
+        {
+            "name": "Sebastian Höffner",
+            "email": "info@sebastian-hoeffner.de"
+        }
+    ],
     "require": {
+        "php": "^7.0",
         "php-telegram-bot/telegram-bot-manager": "^1.2",
         "longman/telegram-bot": "dev-develop as 0.48",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "nesbot/carbon": "^1.22"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.3"
+    },
+    "scripts": {
+        "test": [
+            "./vendor/bin/phpunit -c phpunit.xml"
+        ]
     }
 }
