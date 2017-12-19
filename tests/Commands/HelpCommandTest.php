@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 namespace Timey\Test;
 
 require_once __DIR__ .'/../TestHelpers.php';
@@ -21,7 +21,7 @@ class HelpCommandTest extends TelegramBotCommandTest
     public function helpCommandProvider() : array
     {
         return [
-            [['text' => '/help'], 'Hello, I am timey!']
+            [['text' => '/help'], '/time']
         ];
     }
 }

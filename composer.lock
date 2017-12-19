@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "604c039d9303f7cc100e9dfafb609149",
+    "content-hash": "094a147968037bffaf918e8271d2d221",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -249,12 +249,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-telegram-bot/core.git",
-                "reference": "2fa1b4f3c85725209db6d33808d28e4df32a7eee"
+                "reference": "caca27f85872dd8972d7fa7c5c35c31103704ee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-telegram-bot/core/zipball/2fa1b4f3c85725209db6d33808d28e4df32a7eee",
-                "reference": "2fa1b4f3c85725209db6d33808d28e4df32a7eee",
+                "url": "https://api.github.com/repos/php-telegram-bot/core/zipball/caca27f85872dd8972d7fa7c5c35c31103704ee2",
+                "reference": "caca27f85872dd8972d7fa7c5c35c31103704ee2",
                 "shasum": ""
             },
             "require": {
@@ -287,14 +287,14 @@
                     "role": "Developer"
                 }
             ],
-            "description": "PHP telegram bot",
+            "description": "PHP Telegram bot",
             "homepage": "https://github.com/php-telegram-bot/core",
             "keywords": [
                 "api",
                 "bot",
                 "telegram"
             ],
-            "time": "2017-09-22T10:56:25+00:00"
+            "time": "2017-10-06T22:02:12+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -373,6 +373,59 @@
                 "psr-3"
             ],
             "time": "2017-06-19T01:22:40+00:00"
+        },
+        {
+            "name": "nesbot/carbon",
+            "version": "1.22.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/briannesbitt/Carbon.git",
+                "reference": "7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc",
+                "reference": "7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/translation": "~2.6 || ~3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2",
+                "phpunit/phpunit": "~4.0 || ~5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.23-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Carbon\\": "src/Carbon/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Nesbitt",
+                    "email": "brian@nesbot.com",
+                    "homepage": "http://nesbot.com"
+                }
+            ],
+            "description": "A simple API extension for DateTime.",
+            "homepage": "http://carbon.nesbot.com",
+            "keywords": [
+                "date",
+                "datetime",
+                "time"
+            ],
+            "time": "2017-01-16T07:55:07+00:00"
         },
         {
             "name": "php-telegram-bot/telegram-bot-manager",
@@ -521,6 +574,130 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
+                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2017-06-14T15:44:48+00:00"
+        },
+        {
+            "name": "symfony/translation",
+            "version": "v3.3.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/translation.git",
+                "reference": "409bf229cd552bf7e3faa8ab7e3980b07672073f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/409bf229cd552bf7e3faa8ab7e3980b07672073f",
+                "reference": "409bf229cd552bf7e3faa8ab7e3980b07672073f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "conflict": {
+                "symfony/config": "<2.8",
+                "symfony/yaml": "<3.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~2.8|~3.0",
+                "symfony/intl": "^2.8.18|^3.2.5",
+                "symfony/yaml": "~3.3"
+            },
+            "suggest": {
+                "psr/log": "To use logging capability in translator",
+                "symfony/config": "",
+                "symfony/yaml": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Translation\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Translation Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-10-02T06:42:24+00:00"
         }
     ],
     "packages-dev": [
@@ -1183,16 +1360,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.3.1",
+            "version": "6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c0ff817b36a827e64bf5f57bc72278150cf30a77"
+                "reference": "b770d8ba7e60295ee91d69d5a5e01ae833cac220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c0ff817b36a827e64bf5f57bc72278150cf30a77",
-                "reference": "c0ff817b36a827e64bf5f57bc72278150cf30a77",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b770d8ba7e60295ee91d69d5a5e01ae833cac220",
+                "reference": "b770d8ba7e60295ee91d69d5a5e01ae833cac220",
                 "shasum": ""
             },
             "require": {
@@ -1237,7 +1414,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.3.x-dev"
+                    "dev-master": "6.4.x-dev"
                 }
             },
             "autoload": {
@@ -1263,7 +1440,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-09-24T07:25:54+00:00"
+            "time": "2017-10-07T17:53:53+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1988,6 +2165,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^7.0"
+    },
     "platform-dev": []
 }

@@ -5,6 +5,15 @@
         "version": "automatically created",
         "admins": [your user id's, and your friend's, and...]
     },
+    "database": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": ""
+    },
+    "external": {
+        "google_api_key": ""
+    },
     "web": {
         "base_url": "e.g. https://timey.sebastian-hoeffner.de",
         "app_secret": "some secret string to use manager.php",

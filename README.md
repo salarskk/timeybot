@@ -12,4 +12,11 @@ Visit this bot: [timey.sebastian-hoeffner.de](https://timey.sebastian-hoeffner.d
 
 ## Test
 
+Add an API key to [tests/config.test.json](tests/config.test.json) ([Google API Dashboard](https://console.developers.google.com/apis/dashboard)).
+Then run:
+
     phpunit -c phpunit.xml
+
+Be careful to not commit the config.test.json with your API Key!
+
+Alternatively you can just push some commits to a pull requests, semaphore will build and test your branch then using its dedicated API key.
