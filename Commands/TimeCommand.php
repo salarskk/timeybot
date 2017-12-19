@@ -3,10 +3,12 @@
 namespace Longman\TelegramBot\Commands\UserCommands;
 
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Longman\TelegramBot\Commands\Command;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Request;
+
 
 /**
  * User "/time" command.
@@ -17,21 +19,71 @@ class TimeCommand extends UserCommand
     protected $description = 'Converts time.';
     protected $usage = '/time <time string>';
     protected $version = '1.0.0';
+    private $client;
 
-    protected function getTimezoneByCity(string $city) : string
+    /**
+     * Gets a timezone by longitude and latitude using the Google Maps
+     * timezone API.
+     * https://developers.google.com/maps/documentation/timezone
+     */
+    protected function getTimeZoneByCoords(string $latitude, string $longitude, \Carbon\Carbon $time) : string
     {
-        // TODO(shoeffner): Get timezone from database or API.
-        switch (strtolower(trim($city))) {
-            case 'new york':
-                return 'America/New_York';
-            case 'tokyo':
-                return 'Asia/Tokyo';
-            case 'osnabrück':
-                return 'Europe/Berlin';
+        $url = 'https://maps.googleapis.com/maps/api/timezone/json';
+        $query = [
+            'location' => $latitude . ',' . $longitude,
+            'timestamp' => $time->format('U'),
+            'key' => $this->getConfig('google_api_key')
+        ];
+
+        try {
+            $response = $this->client->get($url, ['query' => $query]);
+        } catch (RequestException $e) {
+            TelegramLog::error($e->getMessage());
+            return '';
         }
-        return 'Europe/Berlin';
+
+        $gresponse = json_decode($response->getBody()->getContents(), true);
+        if (count($gresponse) >= 1) {
+            return $gresponse['timeZoneId'];
+        }
+        return '';
     }
 
+    /**
+     * Gets a timezone by city name using nominatim
+     * https://nominatim.openstreetmap.org to query for latitude and
+     * longitude and getTimeZoneByCoords to get the time zone from there.
+     */
+    protected function getTimezoneByCity(string $city, \Carbon\Carbon $time) : string
+    {
+        $url_city = trim($city);
+
+        $url = 'https://nominatim.openstreetmap.org/search/';
+        $query = [
+            'q' => $url_city,
+            'format' => 'json',
+        ];
+
+        try {
+            $response = $this->client->get($url, ['query' => $query]);
+        } catch (RequestException $e) {
+            TelegramLog::error($e->getMessage());
+            return '';
+        }
+        $response = $response->getBody()->getContents();
+        $nominatim_response = json_decode($response, true);
+        if (count($nominatim_response) >= 1) {
+            $latitude = $nominatim_response[0]['lat'];
+            $longitude = $nominatim_response[0]['lon'];
+            return $this->getTimeZoneByCoords($latitude, $longitude, $time);
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Parses a message and determines the requested time.
+     */
     protected function parse_message(string $message) : string
     {
         // TODO(shoeffner): Currently assumes local server time to be the
@@ -46,21 +98,34 @@ class TimeCommand extends UserCommand
             $parsed = Carbon::parse($time);
         } catch (\Exception $e) {
             // Assume city name only
-            $timezone = $this->getTimezoneByCity($time);
-            $parsed = Carbon::now($timezone);
+            $timezone = $this->getTimezoneByCity($time, Carbon::now());
+            if (!empty($timezone)) {
+                $parsed = Carbon::now($timezone);
+            } else {
+                return 'Can not find a timezone for ' . $time . ', sorry!';
+            }
         }
 
         if (count($time_and_city) > 1) {
             $city = $time_and_city[1];
-            $timezone = $this->getTimezoneByCity($city);
-            $parsed = $parsed->timezone($timezone);
+            $timezone = $this->getTimezoneByCity($city, $parsed);
+            if (!empty($timezone)) {
+                $parsed = $parsed->timezone($timezone);
+            } else {
+                return 'Could not find ' . $city . ', sorry!';
+            }
         }
 
         return $parsed->format(\DateTime::COOKIE);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function execute() : ServerResponse
     {
+        $this->client = new Client();
+
         $message = $this->getMessage();
         $chat_id = $message->getChat()->getId();
         $text = trim($message->getText(true));

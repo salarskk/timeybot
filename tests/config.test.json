@@ -10,6 +10,9 @@
         "password": "password",
         "database": "database"
     },
+    "external": {
+        "google_api_key": ""
+    },
     "web": {
         "base_url": "http://localhost/",
         "app_secret": "796bc7c5ce69ac80d2970",

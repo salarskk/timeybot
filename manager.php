@@ -62,6 +62,9 @@ function createBotManager(string $config_file_path) : BotManager
             ],
             // Command configurations
             'configs' => [
+                'time' => [
+                    'google_api_key' => $config['external']['google_api_key'],
+                ],
             ],
         ],
 
