@@ -39,7 +39,7 @@ class HelpCommand extends UserCommand
     /**
      * @var string
      */
-    protected $version = '1.3.0';
+    protected $version = '1.4.0';
 
     /**
      * @inheritdoc
@@ -68,7 +68,9 @@ class HelpCommand extends UserCommand
                     $data['text'] .= '/' . $admin_command->getName() . ' - ' . $admin_command->getDescription() . PHP_EOL;
                 }
             }
-            $data['text'] .= PHP_EOL . 'For exact command help type: /help <command>';
+            $data['text'] .= PHP_EOL . 'For exact command help type: /help <command>'
+                           . PHP_EOL . PHP_EOL . "This bot is open source! Help teach it more commands."
+                           . PHP_EOL . "https://github.com/shoeffner/timeybot";
             return Request::sendMessage($data);
         }
         $command_str = str_replace('/', '', $command_str);
