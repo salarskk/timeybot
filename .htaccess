@@ -12,5 +12,5 @@ RedirectMatch 403 ^/\.semaphore-cache/.*$
 RedirectMatch 403 ^/Commands/.*$
 RedirectMatch 403 ^/tests/.*$
 RedirectMatch 403 ^/vendor/.*$
-RedirectMatch 403  ^/README.md$
-RedirectMatch 403  ^/.*(\.json.*|\.md|\.log|\.xml|\.lock)$
+RedirectMatch 403 ^/README.md$
+RedirectMatch 403 ^/.*(\.json.*|\.md|\.log|\.xml|\.lock)$
