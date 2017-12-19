@@ -26,9 +26,9 @@ class TimeCommand extends UserCommand
      * timezone API.
      * https://developers.google.com/maps/documentation/timezone
      */
-    protected function getTimeZoneByCoords(string $latitude, string $longitude, \Carbon\Carbon $time) : string
+    protected function getTimeZoneByCoords(float $latitude, float $longitude, \Carbon\Carbon $time) : string
     {
-        $url = 'https://maps.googleapis.com/maps/api/timezone/json';
+        $url = 'timezone/json';
         $query = [
             'location' => $latitude . ',' . $longitude,
             'timestamp' => $time->format('U'),
@@ -58,10 +58,10 @@ class TimeCommand extends UserCommand
     {
         $url_city = trim($city);
 
-        $url = 'https://nominatim.openstreetmap.org/search/';
+        $url = 'geocode/json';
         $query = [
-            'q' => $url_city,
-            'format' => 'json',
+            'address' => $url_city,
+            'key' => $this->getConfig('google_api_key')
         ];
 
         try {
@@ -71,10 +71,10 @@ class TimeCommand extends UserCommand
             return '';
         }
         $response = $response->getBody()->getContents();
-        $nominatim_response = json_decode($response, true);
-        if (count($nominatim_response) >= 1) {
-            $latitude = $nominatim_response[0]['lat'];
-            $longitude = $nominatim_response[0]['lon'];
+        $response = json_decode($response, true);
+        if (count($response['results']) >= 1) {
+            $latitude = $response['results'][0]['geometry']['location']['lat'];
+            $longitude = $response['results'][0]['geometry']['location']['lng'];
             return $this->getTimeZoneByCoords($latitude, $longitude, $time);
         } else {
             return '';
@@ -124,7 +124,7 @@ class TimeCommand extends UserCommand
      */
     public function execute() : ServerResponse
     {
-        $this->client = new Client();
+        $this->client = new Client(['base_uri' => 'https://maps.googleapis.com/maps/api/']);
 
         $message = $this->getMessage();
         $chat_id = $message->getChat()->getId();
